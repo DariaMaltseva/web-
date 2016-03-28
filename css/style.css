@@ -1,0 +1,36 @@
+  h1 {
+    font-family: Verdana, sans-serif;
+    color: salmon;
+    background-color:peachpuff;
+    padding: 20px 10px;
+  }
+  body {
+    background-color: floralwhite;
+    font-family: Verdana;
+    color: black;
+    font-size: 13px;
+  }
+  .smaller-image {
+    width: 120px; 
+  }
+  .image {
+    width: 250px;
+  }
+  aside {
+    float:right;
+    background:salmon;
+    text-align:center;
+    padding: 10px 10px;
+  }
+   footer {
+    font-size:12px;
+    background-color:peachpuff;
+    text-align:center;
+    padding: 10px 10px;
+   }
+   p0 {
+    font-style:italic;
+   }
+   p1 {
+    font-weight:bold;
+   }
