@@ -17,10 +17,16 @@ $_SESSION['test'] = $_SERVER['REMOTE_ADDR'];
       <h1>Регистрация</h1>
       <form action="php/script.php" method="get" action="index.html">
       <p>ФИО:
-        <input type="text" name="name" id="name" value="" placeholder="Name" pattern="([A-zА-Яа-яЁё\s-]{1,50})" required/>
+        <input type="text" name="name" id="name" value="<?php 
+      echo $_SESSION['nameR'];
+      $_SESSION['nameR'] = ''; 
+      ?>" placeholder="Name" pattern="([A-zА-Яа-яЁё\s-]{1,50})" required/>
       </p>
       <p>Email:
-        <input type="email" name="email" id="email" value="" placeholder="Email" pattern="([A-z0-9_.-]{1,})@([A-z0-9_.-]{1,}).([A-z]{2,8})" required/>
+        <input type="email" name="email" id="email" value="<?php 
+      echo $_SESSION['emailR'];
+      $_SESSION['emailR'] = ''; 
+      ?>" placeholder="Email" pattern="([A-z0-9_.-]{1,})@([A-z0-9_.-]{1,}).([A-z]{2,8})" required/>
       </p>
       <p>Телефон:
         <input type="tel" name="phone" id="phone" value="8-" placeholder="Phone" pattern="^\d{1}-\d{3}-\d{3}-\d{2}-\d{2}$" required/>
@@ -29,7 +35,7 @@ $_SESSION['test'] = $_SERVER['REMOTE_ADDR'];
       <br>
       <?php 
       echo $_SESSION['message'];
-      echo $_SESSION['message'] = ''; 
+      $_SESSION['message'] = ''; 
       ?>
       </form>
     </div>
