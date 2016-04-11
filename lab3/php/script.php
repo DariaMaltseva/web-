@@ -5,8 +5,10 @@ if ($_SESSION['test'] == $_SERVER['REMOTE_ADDR'])
 {
 	$name = $email = $phone = '';
 	$_SESSION['message'] = ''; 
-	$NewLine = "\r\n";
+	$NewLine = "\n";
 	$success = true;
+	$_SESSION['nameR'] = $_GET["name"];
+	$_SESSION['emailR'] = $_GET["email"];
 
 	if (!empty($_GET["name"]) && check_length($_GET["name"], 1, 50)) 
 		$name = clean($_GET["name"]);
@@ -16,7 +18,7 @@ if ($_SESSION['test'] == $_SERVER['REMOTE_ADDR'])
     	$email = clean($_GET["email"]); 
 	else {$success = false ; $_SESSION['message'] = 'Ошибка! Недопустимое значение в поле Email'; }
 
-	if (check_length($_GET["phone"], 0, 15)) 
+	if (!empty($_GET["phone"]) && check_length($_GET["phone"], 1, 15)) 
 		$phone = clean($_GET["phone"]); 
 	else {$success = false ; $_SESSION['message'] = 'Ошибка! Недопустимое значение в поле Телефон'; }
 
