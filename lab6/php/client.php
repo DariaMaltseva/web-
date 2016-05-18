@@ -16,15 +16,17 @@ class Client
 	
 	function __construct($name, $email, $phone, $password) 
 	{
-		self::$Name = $this->clean($name);
-		self::$Email = $this->clean($email);
-		self::$Phone = $this->clean($phone);
-		self::$Password = $this->clean($password);		
+		self::$Name = $name;
+		self::$Email = $email;
+		self::$Phone = $phone;
+		self::$Password = $password;	
 		if ($this->check_length(self::$Name, 1, 50) || !filter_var($_GET["email"], FILTER_VALIDATE_EMAIL) || $this->check_length(self::$Phone, 1, 15) || $this->check_length(self::$Password, 5, 20)) 
-			throw new Exception("Ошибка формата ввода!");	
+			throw new Exception("Ошибка!");	
 		if($this->check_Name())		
 			throw new Exception("Пользователь с таким именем уже существует!");	
-	}	
+		if(!preg_match(self::$patternName, self::$Name) || !preg_match("/\d{1}-\d{3}-\d{3}-\d{2}-\d{2}/", self::$Phone) || !preg_match("/[A-zА-Яа-яЁё0-9\s-]{7,20}/", self::$Password))
+			throw new Exception("Ошибка формата ввода!");	
+	}		
 
 	function check_Name()
 	{
@@ -44,16 +46,6 @@ class Client
 				return false;
 			else
 				return true;
-	}
-	
-	function clean($value = "") 
-	{
-		$value = trim($value);
-		$value = stripslashes($value);
-		$value = strip_tags($value);
-		$value = htmlspecialchars($value);
-	
-		return $value;
 	}
 
 	function check_length($value = "", $min, $max) 
