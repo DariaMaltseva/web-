@@ -11,19 +11,21 @@ class Client
 	private static $patternName = '([A-z0-9_.-]{1,50})';
 	private static $patternEmail = '([A-z0-9_.-]{1,})@([A-z0-9_.-]{1,}).([A-z]{2,8})';
 	private static $patternPhone = '^\d{1}-\d{3}-\d{3}-\d{2}-\d{2}$';
-	private static $patternPassword = '^[A-zА-Яа-яЁё-0-9\s-]{5,20}';
+	private static $patternPassword = '^[A-zА-Яа-яЁё-0-9\s-]{7,20}$';
 	private static $lastID = '';
 	
 	function __construct($name, $email, $phone, $password) 
 	{
-		self::$Name = $this->clean($name);
-		self::$Email = $this->clean($email);
-		self::$Phone = $this->clean($phone);
-		self::$Password = $this->clean($password);		
+		self::$Name = $name;//$_GET["name"];
+		self::$Email = $email;//$_GET["email"];
+		self::$Phone = $phone;//$_GET["phone"];
+		self::$Password = $password;//$_GET["password"];	
 		if ($this->check_length(self::$Name, 1, 50) || !filter_var($_GET["email"], FILTER_VALIDATE_EMAIL) || $this->check_length(self::$Phone, 1, 15) || $this->check_length(self::$Password, 5, 20)) 
-			throw new Exception("Ошибка формата ввода!");	
+			throw new Exception("Ошибка!");	
 		if($this->check_Name())		
 			throw new Exception("Пользователь с таким именем уже существует!");	
+		if(!preg_match(self::$patternName, self::$Name) || !preg_match("/\d{1}-\d{3}-\d{3}-\d{2}-\d{2}/", self::$Phone) || !preg_match("/[A-zА-Яа-яЁё0-9\s-]{7,20}/", self::$Password))
+			throw new Exception("Ошибка формата ввода!");	
 	}	
 
 	function check_Name()
@@ -48,10 +50,7 @@ class Client
 	
 	function clean($value = "") 
 	{
-		$value = trim($value);
-		$value = stripslashes($value);
-		$value = strip_tags($value);
-		$value = htmlspecialchars($value);
+		$value = htmlspecialchars(strip_tags(stripslashes(trim($value))));
 	
 		return $value;
 	}
